@@ -31,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
 
-    private Fruit[] fruits = {new Fruit("AngleBaby", R.drawable.angle), new Fruit("古力娜扎", R.drawable.gulinazha),
-            new Fruit("林允儿", R.drawable.linyuner), new Fruit("刘亦菲", R.drawable.liuyifei),
-            new Fruit("孙俪", R.drawable.suili), new Fruit("佟丽娅", R.drawable.tongliya),
-            new Fruit("杨幂", R.drawable.yangmi), new Fruit("赵丽颖", R.drawable.zhaoliyin),
-            new Fruit("李冰冰", R.drawable.libingbing), new Fruit("唐嫣", R.drawable.tangyan)};
+    private Meizhi[] meizhis = {new Meizhi("AngleBaby", R.drawable.angle), new Meizhi("古力娜扎", R.drawable.gulinazha),
+            new Meizhi("林允儿", R.drawable.linyuner), new Meizhi("刘亦菲", R.drawable.liuyifei),
+            new Meizhi("孙俪", R.drawable.suili), new Meizhi("佟丽娅", R.drawable.tongliya),
+            new Meizhi("杨幂", R.drawable.yangmi), new Meizhi("赵丽颖", R.drawable.zhaoliyin),
+            new Meizhi("李冰冰", R.drawable.libingbing), new Meizhi("唐嫣", R.drawable.tangyan)};
 
-    private List<Fruit> beautyList = new ArrayList<>();
+    private List<Meizhi> beautyList = new ArrayList<>();
 
-    private FruitAdapter mAdpter;
+    private MeizhiAdapter mAdpter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_main);
 
-        initFruits();
-        mAdpter = new FruitAdapter(beautyList);
+        initData();
+        mAdpter = new MeizhiAdapter(beautyList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mAdpter);
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshFruits();
+                refreshData();
             }
         });
 
@@ -127,16 +127,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initFruits() {
+    private void initData() {
         beautyList.clear();
         for (int i = 0; i < 50; i++) {
             Random random = new Random();
-            int index = random.nextInt(fruits.length);
-            beautyList.add(fruits[index]);
+            int index = random.nextInt(meizhis.length);
+            beautyList.add(meizhis[index]);
         }
     }
 
-    private void refreshFruits() {
+    private void refreshData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initFruits();
+                        initData();
                         mAdpter.notifyDataSetChanged();
                         mRefreshLayout.setRefreshing(false);
                         Toast.makeText(MainActivity.this, "更新成功！", Toast.LENGTH_SHORT).show();

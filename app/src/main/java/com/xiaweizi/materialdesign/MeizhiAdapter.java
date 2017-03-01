@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
+public class MeizhiAdapter extends RecyclerView.Adapter<MeizhiAdapter.ViewHolder>{
 
-    private static final String TAG = "FruitAdapter";
+    private static final String TAG = "MeizhiAdapter";
 
     private Context mContext;
 
-    private List<Fruit> mFruitList;
+    private List<Meizhi> mMeizhiList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
@@ -35,8 +35,8 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
         }
     }
 
-    public FruitAdapter(List<Fruit> fruitList) {
-        mFruitList = fruitList;
+    public MeizhiAdapter(List<Meizhi> meizhiList) {
+        mMeizhiList = meizhiList;
     }
 
     @Override
@@ -50,10 +50,10 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                Fruit fruit = mFruitList.get(position);
-                Intent intent = new Intent(mContext, FruitActivity.class);
-                intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
-                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());
+                Meizhi meizhi = mMeizhiList.get(position);
+                Intent intent = new Intent(mContext, MeizhiActivity.class);
+                intent.putExtra(MeizhiActivity.FRUIT_NAME, meizhi.getName());
+                intent.putExtra(MeizhiActivity.FRUIT_IMAGE_ID, meizhi.getImageId());
                 mContext.startActivity(intent);
             }
         });
@@ -62,14 +62,14 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Fruit fruit = mFruitList.get(position);
-        holder.fruitName.setText(fruit.getName());
-        Glide.with(mContext).load(fruit.getImageId()).into(holder.fruitImage);
+        Meizhi meizhi = mMeizhiList.get(position);
+        holder.fruitName.setText(meizhi.getName());
+        Glide.with(mContext).load(meizhi.getImageId()).into(holder.fruitImage);
     }
 
     @Override
     public int getItemCount() {
-        return mFruitList.size();
+        return mMeizhiList.size();
     }
 
 }
